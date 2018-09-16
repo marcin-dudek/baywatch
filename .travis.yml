@@ -1,8 +1,11 @@
 language: go
 
-before_install:                                                                 
+before_install:                         
+  - cd src                                        
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh  
   - dep ensure
+
+install: true
 
 go:
   - 1.x
