@@ -28,26 +28,26 @@ func check() {
 
 	for _, u := range config.Request {
 		go func(r Request) {
-			now := time.Now()
-
 			req, err := http.NewRequest(r.Method, r.URL, bytes.NewBuffer([]byte(r.Body)))
+			if err != nil {
+				log.WithFields(log.Fields{"Error": err, "url": r.URL}).Warn("Configuration error")
+				return
+			}
+
 			for k, v := range r.Header {
 				req.Header.Set(k, v)
 			}
 
+			now := time.Now()
 			client := &http.Client{}
 			resp, err := client.Do(req)
-			if err != nil {
-				panic(err)
-			}
-			defer resp.Body.Close()
-
 			d := time.Since(now)
 			if err != nil {
 				log.WithFields(log.Fields{"Error": err, "Elapsed": d.String(), "url": r.URL}).Warn("Error")
 			} else {
 				log.WithFields(log.Fields{"StatusCode": resp.StatusCode, "Elapsed": d.String(), "url": r.URL}).Info("ok")
 			}
+
 		}(u)
 	}
 
