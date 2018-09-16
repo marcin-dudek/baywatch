@@ -1,0 +1,13 @@
+{
+    "request": [
+        {
+            "url": "https://google.pl",
+            "method": "GET"
+        },
+        {
+            "url": "https://stackoverflow.com",
+            "method": "GET"
+        }
+    ],
+    "interval": "10s"
+}
