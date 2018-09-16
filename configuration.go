@@ -11,8 +11,16 @@ import (
 
 // Config contains configuration information
 type Config struct {
-	URL      []string `json:"url"`
-	Interval Duration `json:"interval"`
+	Request  []Request `json:"request"`
+	Interval Duration  `json:"interval"`
+}
+
+// Request represents single
+type Request struct {
+	URL    string            `json:"url"`
+	Method string            `json:"method"`
+	Header map[string]string `json:"header"`
+	Body   string            `json:"body"`
 }
 
 func readConfiguration() Config {

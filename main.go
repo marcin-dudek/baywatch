@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"net/http"
@@ -25,15 +26,27 @@ func main() {
 func check() {
 	config := readConfiguration()
 
-	for _, u := range config.URL {
-		go func(url string) {
+	for _, u := range config.Request {
+		go func(r Request) {
 			now := time.Now()
-			r, err := http.Get(url)
+
+			req, err := http.NewRequest(r.Method, r.URL, bytes.NewBuffer([]byte(r.Body)))
+			for k, v := range r.Header {
+				req.Header.Set(k, v)
+			}
+
+			client := &http.Client{}
+			resp, err := client.Do(req)
+			if err != nil {
+				panic(err)
+			}
+			defer resp.Body.Close()
+
 			d := time.Since(now)
 			if err != nil {
-				log.WithFields(log.Fields{"Error": err, "Elapsed": d.String(), "url": url}).Warn("Error")
+				log.WithFields(log.Fields{"Error": err, "Elapsed": d.String(), "url": r.URL}).Warn("Error")
 			} else {
-				log.WithFields(log.Fields{"StatusCode": r.StatusCode, "Elapsed": d.String(), "url": url}).Info("ok")
+				log.WithFields(log.Fields{"StatusCode": resp.StatusCode, "Elapsed": d.String(), "url": r.URL}).Info("ok")
 			}
 		}(u)
 	}
