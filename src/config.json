@@ -2,11 +2,17 @@
     "request": [
         {
             "url": "https://google.pl",
-            "method": "GET"
+            "method": "GET",
+            "header": {
+                "User-Agent": "HttpClient"
+            }
         },
         {
             "url": "https://stackoverflow.com",
-            "method": "GET"
+            "method": "GET",
+            "header": {
+                "User-Agent": "HttpClient"
+            }
         }
     ],
     "interval": "10s"
