@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/go-redis/redis"
+  packages = [".","internal","internal/consistenthash","internal/hashtag","internal/pool","internal/proto","internal/singleflight","internal/util"]
+  revision = "b3d9bf10f6666b2ee5100a6f3f84f4caf3b4e37d"
+  version = "v6.14.2"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
@@ -22,6 +28,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d5f1c34ef33db1a8fcdf0630101590c64eda4076248f149b85d8a27de374029e"
+  inputs-digest = "1aec1d4533bcd0208528f0f23c30d6e88c31162cd6c35572e332f413641f44ab"
   solver-name = "gps-cdcl"
   solver-version = 1

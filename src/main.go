@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/go-redis/redis"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -16,6 +17,7 @@ func main() {
 	fmt.Println("Enter q for quit")
 	go rotate(time.Now().Hour())
 	go check()
+	exampleNewClient()
 
 	var s string
 	for s != "q" {
@@ -53,6 +55,21 @@ func check() {
 
 	time.Sleep(config.Interval.Duration)
 	check()
+}
+
+func exampleNewClient() {
+	client := redis.NewClient(&redis.Options{
+		Addr:     "redis:6379", // "localhost:6379",
+		Password: "",           // no password set
+		DB:       0,            // use default DB
+	})
+
+	pong, err := client.Ping().Result()
+	if err != nil {
+		log.WithFields(log.Fields{"Error": err}).Warn("redis-error")
+	} else {
+		log.WithFields(log.Fields{"Pong": pong}).Info("redis-ok")
+	}
 }
 
 func rotate(hour int) {
