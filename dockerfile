@@ -9,7 +9,7 @@ ENV PATH=$GOPATH/bin:$PATH
 RUN go get -u github.com/golang/dep/...
 
 # Copy sources
-COPY /src /go/src/build
+COPY /server /go/src/build
 WORKDIR /go/src/build
 
 # Go dep

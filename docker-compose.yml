@@ -3,7 +3,7 @@ services:
   baywatch:
     build: .
     volumes:
-    - ./src/logs:/app/logs
+    - ./server/logs:/app/logs
     links:
     - redis
   redis:
