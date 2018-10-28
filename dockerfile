@@ -19,7 +19,7 @@ RUN dep ensure
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o baywatch .
 
 # Output image
-FROM alpine:latest
+FROM alpine
 COPY --from=builder /go/src/build /app/
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/* && update-ca-certificates
 WORKDIR /app
