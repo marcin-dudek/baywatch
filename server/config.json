@@ -13,6 +13,13 @@
             "header": {
                 "User-Agent": "HttpClient"
             }
+        },
+        {
+            "url": "https://wp.pl",
+            "method": "GET",
+            "header": {
+                "User-Agent": "HttpClient"
+            }
         }
     ],
     "interval": "10s"

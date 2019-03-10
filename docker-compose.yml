@@ -1,6 +1,6 @@
 version: '3'
 services:
-  baywatch:
+  server:
     build: .
     volumes:
     - ./server/logs:/app/logs
